@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+  <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css'/>
+  <link rel='stylesheet' href='/stylesheets/user.css'/>
+</head>
+<header>
+<div class="container">
+<div id="branding"><h1>Titan Cloud</h1></div>
+<nav>
+<ul>
+<li><a href="./user">Home</a></li>
+<li><a href="./about.php">About</a></li>
+<li><a href="./contact.php">Contact</a></li>
+ <li><a href='/logout'> Logout </a></li>
+</ul>
+</nav>
+</div>
+</header>
+<body>
+<section id="showcase" background="./img/banner.jpg">
+<div class="container"> 
+</div>
+</section>
+<h3> Services</h3> 
+  <% for(var i=0;i<departments.length;i++){ %>
+  <div style=" margin-top:50px;">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+    <div class="panel-body"  style="font-weight:bold;color:white;" id="department" onclick="department(this)"  value="<%= departments[i].dept_name %>"><%= departments[i].dept_name %></div>
+        <%departments[i].dept_name.onclick = function() {
+      alert(currentRow);
+  } %>
+      </div>
+    </div>
+  </div>
+  <form>
+<%}%>
+</div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+ <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
+<script>
+function department(element){
+ var dept_name = element.getAttribute('value');
+ if(dept_name == 'Customer Service'){
+   window.location.href = './customer_services'; 
+ }
+ if(dept_name == 'Development'){
+   window.location.href = './development'; 
+ }
+ if(dept_name == 'Finance'){
+   window.location.href = './Finance'; 
+ }
+  if(dept_name == 'Human Resources'){
+   window.location.href = './Human_resources'; 
+ }
+ if(dept_name == 'Marketing'){
+   window.location.href = './Marketing'; 
+ }
+ if(dept_name == 'Production'){
+   window.location.href = './Production'; 
+ }
+ if(dept_name == 'Quality Management'){
+   window.location.href = './Quality_Management'; 
+ }
+ if(dept_name == 'Research'){
+   window.location.href = './Research'; 
+ }
+ if(dept_name == 'Sales'){
+   window.location.href = './Sales'; 
+ }
+ }
+
+
+</script>

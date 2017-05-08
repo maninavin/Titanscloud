@@ -1,0 +1,53 @@
+<html>
+<head>
+<link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+<link rel='stylesheet' href='/stylesheets/Production.css' />
+</head>
+<header>
+<div class="container">
+<div id="branding"><h1>Production</h1></div>
+<nav>
+<ul>
+<li><a href="./user">Home</a></li>
+<li><a href="./about.php">About</a></li>
+<li><a href="./contact.php">Contact</a></li>
+ <li><a href='/logout'> Logout </a></li>
+</ul>
+</nav>
+</div>
+</header>
+<body>
+<section id="showcase" background="./img/cs.jpg">
+<div class="container"> 
+</div>
+</section>
+<h4>&nbsp&nbsp&nbspManagers</h4>
+ <table border="1">
+ <tr>
+ <th bgcolor="#CD6155"> First Name &nbsp&nbspLast Name</th></tr>
+<% for(var i=0;i<d.length;i++){ %>
+ <tr>
+<td><div class="panel-body" id="department" onclick="department(this)"  value="<%= d[i].first_name %>">
+<%= d[i].first_name %>  &nbsp&nbsp <%= d[i].last_name %> </div></td></tr>
+
+
+<%}%>
+
+</div>
+
+<div id="tfheader">
+<form action="/customer_services/search" method="post">
+            <input type="text"  name="emp_name"  value=" " size="21" maxlength="120">
+            <input type="submit" value="search" class="tfbutton">
+  <div class="tfclear"></div>
+    </form>
+  </div>
+<script src="/js/jquery-3.1.1.min.js"></script>
+ <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
+<script>
+ 
+
+</script>

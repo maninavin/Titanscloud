@@ -1,0 +1,152 @@
+<html>
+<head>
+<link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+<link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+<link rel='stylesheet' href='/stylesheets/search.css' />
+</head>
+<header>
+<div class="container">
+<div id="branding"><h1>Employee Details</h1></div>
+<nav>
+<ul>
+<li><a href="/user">Home</a></li>
+<li><a href="./about.php">About</a></li>
+<li><a href="./contact.php">Contact</a></li>
+ <li><a href='/logout'> Logout </a></li>
+</ul>
+</nav>
+</div>
+</header>
+<body>
+<h4></h4>
+  <center>
+      <table class="table table-responsive" border="1">
+      </th>
+      </tr>
+      <% for(var i=0;i<search.length;i++){ %>
+       <tr>
+       <td>Employee No: &nbsp&nbsp&nbsp<%= search[i].emp_no %></td></tr>
+       <td>First Name: &nbsp&nbsp&nbsp<%= search[i].first_name %></td></tr>
+       <tr><td>Last Name: &nbsp&nbsp&nbsp<%= search[i].last_name %></td> </tr>
+       <tr><td>Birth Date :&nbsp&nbsp&nbsp <%= search[i].birth_date %></td></tr>
+        <tr><td>Gender :&nbsp&nbsp&nbsp <%= search[i].gender %></td></tr>
+          <tr><td>Hire Date :&nbsp&nbsp&nbsp <%= search[i].hire_date %></td></tr>
+       <tr><td>Department Name :&nbsp&nbsp&nbsp <%= search[i].dept_name %></td></tr>
+       <tr><td>Departement No:&nbsp&nbsp&nbsp<%= search[i].dept_no %></td></tr>
+       <tr><td>From Date :&nbsp&nbsp&nbsp<%= search[i].from_date %></td></tr>
+       <tr><td> To Date :&nbsp&nbsp&nbsp<%= search[i].to_date %></td></tr>
+<tr><td> <button type="button" id="productId" onclick="editEmp(this)" class="btn btn-warning btn-sm" data-toggle="modal" data-stationName="<%= search[i].first_name  %>" data-stationName1="<%= search[i].last_name  %>" data-target="#myModal">Edit</button>
+      <button type="button" class="btn btn-danger btn-sm" onclick="deleteEmp(this)" >Delete</button></td></tr>
+       <%}%>
+         </tr>
+       </table>
+        </center>
+       </div>
+        <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog" style="margin-left:325px">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <center><h5>Update the Employee Details</h5></center>
+          <center>
+        <div class="modal-body">
+        <input type="hidden" id="EmpId" name="productId1" value ="<%= search[0].emp_no %>"/>
+         First Name: <input type="text" id="FirstName" class="form-control" value ="<%= search[0].first_name %>"name="first_name">
+         Last Name: <input type="text" id="LastName" class="form-control"  value ="<%= search[0].last_name %>" name="last_name">
+        Birth Date:<input type="text" id="BDate" class="form-control" value ="<%= search[0].birth_date%>" name="birth_date">
+         Gender:<input type="text" id="Gender" class="form-control" value ="<%= search[0].gender %>" name="gender">
+         Hire Date:<input type="text" id="hire_date" class="form-control" value ="<%= search[0].hire_date %>" name="hire_date">
+         Department Name:<input type="text" id="DepName" class="form-control" value ="<%= search[0].dept_name %>" name="dept_name">
+         Department No<input type="text" id="DepNo" class="form-control" value ="<%= search[0].dept_no %>"name="dept_no">
+         From Date<input type="text" id="FromDate" class="form-control" value ="<%= search[0].from_date %>"name="from_date">
+         To Date<input type="text" id="ToDate" class="form-control" value ="<%= search[0].to_date %>"name="to_date">
+        </div>
+        <center>
+        <div class="modal-footer">
+        <button type="button" onclick="updateEmp(this)"  class="btn btn-default" data-dismiss="modal" >Update</button>
+          <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+      
+<script src="/js/jquery-3.1.1.min.js"></script>
+ <script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
+<script>
+function search(element){
+  alert("veluru");
+  var SearchValue = document.getElementsByName('q').value ;
+  alert(SearchValue);
+
+ }
+function editEmp(element){
+ var Emp_first_name = element.getAttribute('data-stationName');
+ var Emp_last_name = element.getAttribute('data-stationName1');
+ $('#productId1').val(emp_no);
+
+ }
+ 
+ function deleteEmp(element){
+      var productId =  $('#productId').val();
+      $.ajax({
+         url: "/admin/delete",
+         type: "POST",
+         data: {
+             productId:productId,
+         },
+         dataType: "JSON",
+         success: function(response) {
+          alert(productId);
+                   alert(response.msg);
+                 },
+         error: function (response) {
+          alert(response.error);
+         }
+       });
+ }
+ function updateEmp(){
+      var EmpId =      $('#EmpId').val();
+      var BDate = $('#BDate').val();
+      var Gender = $('#Gender').val();
+      var FirstName =  $('#FirstName').val();
+      var LastName =   $('#LastName').val();
+       var DepName =   $('#DepName').val();
+       var Hire_Date =  $('#hire_date').val();
+       var DepNo =   $('#DepNo').val();
+       var FromDate =   $('#FromDate').val();
+       var ToDate =   $('#ToDate').val();
+
+
+       $.ajax({
+         url: "/update",
+         type: "POST",
+         data: {
+             EmpId:EmpId,
+             fName:FirstName,
+             Birth:BDate,
+             Gender:Gender,
+             LName:LastName,
+             HDate:Hire_Date,
+             DName:DepName,
+             DNo:DepNo,
+             FDate: FromDate,
+             TDate: ToDate
+         },
+         dataType: "JSON",
+         success: function(response) {
+                   alert(response.msg);
+                   location.reload();
+                 },
+         error: function (response) {
+          alert(response.error);
+         }
+       });
+    }
+    function closeModal(){
+    $('.modal fade bs-example-modal-lg').modal('hide');
+    }
+</script>
